@@ -1,0 +1,404 @@
+% Credits are indicated where needed. The general idea is based on a template by Vel (vel@LaTeXTemplates.com) and Frits Wenneker.
+
+\documentclass[12pt, letterpaper]{article} % General settings in the beginning (defines the document class of your paper)
+% 11pt = is the font size
+% A4 is the paper size
+% “article” is your document class
+
+%----------------------------------------------------------------------------------------
+%	Packages
+%----------------------------------------------------------------------------------------
+
+% Necessary
+\usepackage[german,english]{babel} % English and German language 
+\usepackage{booktabs} % Horizontal rules in tables 
+% For generating tables, use “LaTeX” online generator (https://www.tablesgenerator.com)
+\usepackage{comment} % Necessary to comment several paragraphs at once
+\usepackage[utf8]{inputenc} % Required for international characters
+\usepackage[T1]{fontenc} % Required for output font encoding for international characters
+
+% Might be helpful
+\usepackage{amsmath,amsfonts,amsthm} % Math packages which might be useful for equations
+\usepackage{tikz} % For tikz figures (to draw arrow diagrams, see a guide how to use them)
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning,arrows} % Adding libraries for arrows
+\usetikzlibrary{decorations.pathreplacing} % Adding libraries for decorations and paths
+\usepackage{tikzsymbols} % For amazing symbols ;) https://mirror.hmc.edu/ctan/graphics/pgf/contrib/tikzsymbols/tikzsymbols.pdf 
+\usepackage{blindtext} % To add some blind text in your paper
+\usepackage{listings}
+\usepackage{enumitem}
+\setlist{nolistsep,leftmargin=10mm}
+
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\lstset{
+backgroundcolor=\color{lbcolor},
+tabsize=10,
+rulecolor=,
+language=,
+basicstyle=\scriptsize,
+upquote=true,
+aboveskip={1.5\baselineskip},
+numbers=left,
+columns=fixed,
+showstringspaces=false,
+extendedchars=true,
+breaklines=true,
+%prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+frame=single,
+showtabs=false,
+showspaces=false,
+identifierstyle=\ttfamily,
+keywordstyle=\color[rgb]{0,0,1},
+commentstyle=\color[rgb]{0.133,0.545,0.133},
+stringstyle=\color[rgb]{0.627,0.126,0.941},
+xleftmargin=2em,
+xrightmargin=2em,
+aboveskip=1em
+}
+
+
+%---------------------------------------------------------------------------------
+% Additional settings
+%---------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------
+% Define your margins
+\usepackage{geometry} % Necessary package for defining margins
+
+\geometry{
+	top=2cm, % Defines top margin
+	bottom=2cm, % Defines bottom margin
+	left=2.2cm, % Defines left margin
+	right=2.2cm, % Defines right margin
+	includehead, % Includes space for a header
+	%includefoot, % Includes space for a footer
+	%showframe, % Uncomment if you want to show how it looks on the page 
+}
+
+\setlength{\parindent}{15pt} % Adjust to set you indent globally 
+
+%---------------------------------------------------------------------------------
+% Define your spacing
+\usepackage{setspace} % Required for spacing
+% Two options:
+\linespread{1.5}
+%\onehalfspacing % one-half-spacing linespread
+
+%----------------------------------------------------------------------------------------
+% Define your fonts
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+
+\usepackage{XCharter} % Use the XCharter font
+
+
+%---------------------------------------------------------------------------------
+% Define your headers and footers
+
+\usepackage{fancyhdr} % Package is needed to define header and footer
+\pagestyle{fancy} % Allows you to customize the headers and footers
+
+%\renewcommand{\sectionmark}[1]{\markboth{#1}{}} % Removes the section number from the header when \leftmark is used
+
+% Headers
+\lhead{} % Define left header
+\chead{\textit{}} % Define center header - e.g. add your paper title
+\rhead{} % Define right header
+
+% Footers
+\lfoot{} % Define left footer
+\cfoot{\footnotesize \thepage} % Define center footer
+\rfoot{ } % Define right footer
+
+%---------------------------------------------------------------------------------
+%	Add information on bibliography
+\usepackage{natbib} % Use natbib for citing
+\usepackage{har2nat} % Allows to use harvard package with natbib https://mirror.reismil.ch/CTAN/macros/latex/contrib/har2nat/har2nat.pdf
+
+% For citing with natbib, you may want to use this reference sheet: 
+% http://merkel.texture.rocks/Latex/natbib.php
+
+%---------------------------------------------------------------------------------
+% Add field for signature (Reference: https://tex.stackexchange.com/questions/35942/how-to-create-a-signature-date-page)
+\newcommand{\signature}[2][5cm]{%
+  \begin{tabular}{@{}p{#1}@{}}
+    #2 \\[2\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Signature}} \\[2\normalbaselineskip] \hrule \\[0pt]
+    {\small \textit{Place, Date}}
+  \end{tabular}
+}
+%---------------------------------------------------------------------------------
+%	General information
+%---------------------------------------------------------------------------------
+\title{R Package \textit{\textbf{'gradDescent'}} Modification} % Adds your title
+\author{
+Xingwei Ji, Zack Liu, Liya Li, Dandi Peng% Add your first and last name
+    %\thanks{} % Adds a footnote to your title
+    %\institution{YOUR INSTITUTION} % Adds your institution
+  }
+
+\date{\small \today} % Adds the current date to your “cover” page; leave empty if you do not want to add a date
+
+
+%---------------------------------------------------------------------------------
+%	Define what’s in your document
+%---------------------------------------------------------------------------------
+
+\begin{document}
+
+
+% If you want a cover page, uncomment "\input{coverpage.tex}" and uncomment "\begin{comment}" and "\end{comment}" to comment the following lines
+%\input{coverpage.tex}
+
+%\begin{comment}
+\maketitle % Print your title, author name and date; comment if you want a cover page 
+
+%\end{comment}
+
+%----------------------------------------------------------------------------------------
+% Introduction
+%----------------------------------------------------------------------------------------
+\setcounter{page}{1} % Sets counter of page to 1
+\vspace*{-12mm}
+\section{Introduction} % Add a section title
+\vspace*{-3mm}
+R package \textit{'gradDescent'} is an implementation of various learning algorithms based on Gradient Descent for dealing with regression tasks.\\
+\noindent
+This package includes basic gradient descent algorithm \textbf{(GD)} and variants of gradient descent algorithm like Mini-Batch Gradient Descent (MBGD), Stochastic Gradient Descent (SGD), Stochastic Average Gradient (SAG), Momentum Gradient Descent (MGD), etc. Gradient Descent is a first order optimization algorithm to find a local minimum of an objective function by searching along the steepest descent direction.\\
+\noindent
+The core computational expensive part of gradient descent algorithm is the iterations (for-loop). Here we choose the basic gradient descent algorithm function \textbf{(GD)} in package \textit{'gradDescent'} as the modification target, and write C++ functions as a replacement to successfully increase the execution speed. \\
+\vspace*{-15mm}
+\section{Algorithm}
+\vspace*{-3mm}
+This \textbf{GD} function build a prediction model using Gradient Descent (GD) method. \\
+\noindent
+In regression tasks, Gradient Descent Algorithm is an iterative method to minimize Residual Sum of Squares (RSS):
+$$RSS= \sum_{i=1}^{n}(y^{(i)}-\beta^Tx^{(i)})^2$$
+where $n$ is the sample size (number of observations), $y^{(i)}$ and $x^{(i)}$ correspond to the $i^{th}$ observation, $\beta$ is a vector of coefficients.\\
+\noindent
+The basic gradient descent algorithm in package \textit{'gradDescent'} is Batch gradient descent, and its procedure is:
+
+\begin{enumerate}
+    \item Assign values randomly to initial parameters (coefficients $\beta$) following the distribution Uniform(0,1).
+    \item Calculate the Residual Sum of Squares (RSS) and update each elements $\beta_j$ ($j=0,1,2,...., p$) of the coefficient $\beta$ based on the rule: $\beta_j=\beta_j-a\frac{\partial RSS}{\partial \beta_j}$, where $a$ is learning rate (constant).
+    \item Repeat step 1, 2 \textbf{t} (=100, 1000, ...) times.
+\end{enumerate}
+\noindent
+The rule in step 2 yields:
+$$\beta_j=\beta_j-a\frac{\partial RSS}{\partial \beta_j}=\beta_j-a\frac{\partial  \sum_{i=1}^{n}(y^{(i)}-\beta^Tx^{(i)})^2}{\partial \beta_j}=\beta_j-2a\sum_{i=1}^{n}(\beta^Tx^{(i)}-y^{(i)})x^{(i)}$$
+\noindent
+The below \textbf{Figure~\ref{fig:grad}}\footnote{Hill, C. (June 5, 2016). Visualizing the gradient descent method. Retrieved from https://scipython.com/blog/visualizing-the-gradient-descent-method/} is an example of gradient descent to get the minimum of a cost function on 2D graph.
+
+% Including figures
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.6]{figure/gradient_eg.eps}% Includes your figure and defines the size
+    \caption{A Gradient Descent Example on 2D graph} % For your caption
+    \label{fig:grad} % If you want to label your figure for in-text references
+\end{figure}
+
+\vspace*{-18mm}
+\section{Modification with Rcpp}
+\vspace*{-5mm}
+Since the third step in the gradient descent is the bottleneck, we decided to rewrite it in C++ by using Rcpp to speed up the \textbf{GD} function in \framebox{\texttt{gradDescentR.Methods.R}}. Rcpp provides many C++ classes to facilitate interfacing between R and C++, which made our rewriting process much easier than using the ordinary \textbf{.Call} function. The nested for-loop in the original GD function was replaced by \\
+\framebox{\texttt{theta <- Cgd(maxIter,inputData,theta,rowLength,temporaryTheta,outputData,alpha)}}\\
+\noindent
+where \textbf{Cgd} is a C++ function in file \framebox{\texttt{GD.cpp}}.\\
+
+\vspace*{-12mm}
+\section{Modified Package Building Instruction\footnote{Wickham, H. (2015, April). R Packages: Compiled code. Retrieved from http://r-pkgs.had.co.nz/src.html#src}}
+\vspace*{-5mm}
+\begin{enumerate}
+    \item In terminal, change working directory to folder \texttt{gradDescent}
+    \item Rename the package name to \framebox{\texttt{gradDescent.modified}} in DESCRIPTION file
+    \item Open a R session
+    \item Run \framebox{\texttt{devtools::use\_rcpp()}} , which creates a \framebox{\texttt{src/}} directory to hold our \framebox{\texttt{.cpp}} source file, and adds \framebox{\texttt{"Rcpp"}} to the \framebox{\texttt{Linkingto}} and \framebox{\texttt{Import}} fields in the DESCRIPTION file
+    \item add 
+    \vspace{0.7em}\\
+    \fbox{\begin{minipage}{35em}\texttt{\#' @useDynLib gradDescent.modified, .registration = TRUE \\
+    \#' @importFrom Rcpp sourceCpp \\
+    NULL}\end{minipage}}
+    \vspace{0.7em}\\
+    to the \framebox{\texttt{gradDescentR.Methods.R}} file and modified the for-loop in \textbf{GD} function as indicated in \textit{\textbf{3 Modification with Rcpp}}  to run partially in C++
+    \item Move our C++ source file \framebox{\texttt{GD.cpp}} into \framebox{\texttt{src/}}
+    \item Run \framebox{\texttt{devtools::load\_all()}} , which loads and re-compiles the packages
+    \item Run \framebox{\texttt{devtools:document()}} , which updates \framebox{\texttt{NAMESPACE}} file
+    \item Run \framebox{\texttt{cd ..}} to go back to the parent directory
+    \item Run \framebox{\texttt{R CMD BUILD gradDescent}} to build the modified package, which generates\\
+    \framebox{\texttt{gradDescent.modified\_3.0.tar.gz}}
+    \item Run \framebox{\texttt{R CMD INSTALL gradDescent.modified\_3.0.tar.gz}} to install
+\end{enumerate}
+\noindent
+The final step of a successful installation is shown in \textbf{Figure~\ref{fig:install}}.
+\newpage
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.7]{figure/result.png}% Includes your figure and defines the size
+    \caption{Installation} % For your caption
+    \label{fig:install} % If you want to label your figure for in-text references
+\end{figure}
+
+\vspace*{-12mm}
+\section{Test Result}
+\vspace*{-3mm}
+Two test cases were applied to verify the modified R package. Both test cases use the same data set in \textbf{gradDescentRdata} from the \textbf{gradDescent} library.\\ 
+\noindent
+The first test case focuses on a running time comparison between the original GD function and the modified GD function, where we used different number of rows of the data and fixed the number of iteration. Result comparison shown as \textbf{Figure~\ref{fig:test1}}. The modified package executes properly as it shows in \textbf{Figure~\ref{fig:testcase1}}.
+\newpage
+\vspace*{-8mm}
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.28]{figure/test1.png}% Includes your figure and defines the size
+    \caption{Results From Test Case 1} % For your caption
+    \label{fig:test1} % If you want to label your figure for in-text references
+\end{figure}
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.45]{figure/Test_case1.png}% Includes your figure and defines the size
+    \caption{Execution of Test Case 1} % For your caption
+    \label{fig:testcase1} % If you want to label your figure for in-text references
+\end{figure}
+\noindent
+Meanwhile, the second test case focuses on a same procedure comparison yet with the used of fixed data size and different number of iteration. Results shown as \textbf{Figure~\ref{fig:test2}}.
+\begin{figure}[htpb!] % Defines figure environment
+    \centering % Centers your figure
+\includegraphics[scale=0.28]{figure/test2.png}% Includes your figure and defines the size
+    \caption{Results From Test Case 2} % For your caption
+    \label{fig:test2} % If you want to label your figure for in-text references
+\end{figure}\\
+\noindent
+In summary, no matter applying for different data sizes or for iteration numbers, our modified GD function yields to much faster running time. On one hand, the larger data size or the larger iteration numbers, the faster running time our modified GD function results to than the original GD function. On the other hand, in the comparison on different iteration number, the range of running time increased increases obviously more when using the modified GD function. \\
+
+\vspace*{-12mm}
+\section{Contribution}
+\vspace*{-5mm}
+R package selection \& modification discussion: All members\\
+\noindent
+C++ code: Xingwei Ji\\
+\noindent
+Modified Package Installation Instruction \& test cases: Zack Liu \& Dandi Peng\\
+\noindent
+Report: Dandi Peng \& Liya Li
+
+\newpage % Includes a new page
+\section*{Appendix} % Stars disable section numbers
+% \appendix % Uncomment if you want to add an "automatic" appendix
+\subsection*{GD.cpp}
+\begin{lstlisting}[language=c++,basicstyle=\regular]
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericMatrix Cgd(int maxIter, NumericMatrix inputData, NumericMatrix theta, int rowLength, NumericMatrix temporaryTheta, NumericVector outputData,float alpha)
+{
+    for (int iteration = 0; iteration < maxIter; iteration++)
+    {
+        NumericMatrix tran_theta = transpose(theta);
+        //inputData %*% t(theta)
+        NumericVector y_hat(inputData.nrow());
+        NumericVector temp(inputData.ncol());
+        for (int i = 0; i < inputData.nrow();i++)
+        {
+            temp = inputData(i,_) * tran_theta;
+            y_hat[i] = sum(temp);
+        }
+        NumericVector error = y_hat - outputData;
+        for (int j = 0; j < theta.ncol(); j++)
+        {
+            NumericVector term = error * inputData(_,j);
+            //calculate gradient
+            float gradient = sum(term) / rowLength;
+            //printf("gradient: %f\n",gradient);
+            temporaryTheta(0,j) = theta(0,j) - (alpha * gradient);
+        }
+        theta = temporaryTheta;
+    }
+    return theta;
+}
+\end{lstlisting}
+
+
+
+\subsection*{Running\_time\_test.R}
+\begin{lstlisting}[language=r,basicstyle=\regular]
+library(microbenchmark)
+library(ggplot2)
+library(gradDescent)
+data("gradDescentRData")
+
+#data
+test_data <- gradDescentRData[[3]]
+data("gradDescentRData")
+
+##########test1##############
+## test original GD function on dataset with different sizes and fixed number of iteration
+original_result_1 <- data.frame()
+data_size <- c(500,1000,1500)
+iteration <- 1e5
+for (i in data_size){
+  result <- summary(microbenchmark(GD(test_data[1:i,], maxIter = iteration,alpha = 0.0001),times =1,unit= "s"))
+  result["data_size"] <- i
+  result["version"] <- "Original"
+  original_result_1 <- rbind(original_result_1,result)
+}
+detach("package:gradDescent", unload=TRUE)
+
+## test modified GD function on dataset with different sizes and fixed number of iteration for run of GD
+library(gradDescent.modified)
+modified_result_1 <- data.frame()
+iteration <- 1e5
+for (i in data_size){
+  result <- summary(microbenchmark(GD(test_data[1:i,], maxIter = iteration,alpha = 0.0001),times =1,unit= "s"))
+  result["data_size"] <- i
+  result["version"] <- "Modified"
+  modified_result_1 <- rbind(modified_result_1,result)
+}
+detach("package:gradDescent.modified", unload=TRUE)
+#result1
+test1<-rbind(original_result_1,modified_result_1)
+
+##########test2##############
+## test original GD function on dataset with same sizes and different number of iteration
+library(gradDescent)
+original_result_2 <- data.frame()
+iteration <- c(1e3,1e4,1e5)
+for (i in iteration){
+  result <- summary(microbenchmark(GD(test_data, maxIter = i,alpha = 0.0001),times =1,unit= "s"))
+  result["iterations"] <- i
+  result["version"] <- "Original"
+  original_result_2 <- rbind(original_result_2,result)
+}
+detach("package:gradDescent", unload=TRUE)
+
+## test modified GD function on dataset with same sizes and different number of iteration
+library(gradDescent.modified)
+modified_result_2 <- data.frame()
+iteration <- c(1e3,1e4,1e5)
+for (i in iteration){
+  result <- summary(microbenchmark(GD(test_data, maxIter = i,alpha = 0.0001),times =10,unit= "s"))
+  result["iterations"] <- i
+  result["version"] <- "Modified"
+  modified_result_2 <- rbind(modified_result_2,result)
+}
+#result2
+test2<-rbind(original_result_2,modified_result_2)
+detach("package:gradDescent.modified", unload=TRUE)
+\end{lstlisting}
+%----------------------------------------------------------------------------------------
+% Bibliography
+%----------------------------------------------------------------------------------------
+%\newpage % Includes a new page
+
+%\pagenumbering{roman} % Changes page numbering to roman page numbers
+%\bibliography{literature}
+
+%\bibliography{literature.bib} % Add the filename of your bibliography
+%\bibliographystyle{apsr} % Defines your bibliography style
+
+% For citing, please see this sheet: http://merkel.texture.rocks/Latex/natbib.php
+
+
+
+
+\end{document}
