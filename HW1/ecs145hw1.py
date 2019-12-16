@@ -75,6 +75,7 @@ def exponent(variables, order):
 
 
 
+
 def polygen(x, deg):
     '''
     Goal:
