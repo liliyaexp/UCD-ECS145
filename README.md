@@ -2,10 +2,10 @@
 Group Projects on Scripting Languages
 
 All work within this repository were conducted by:<br>
-    Xingwei Ji @XingweiJi<br>
-    Zhenhang Liu @zackkkliu<br>
-    Dandi Peng @dandipeng<br>
-    Liya Li @liliyaexp<br><br>
+    Xingwei Ji [@XingweiJi](https://github.com/XingweiJi)<br>
+    Zhenhang Liu [@zackkkliu](https://github.com/Zackkkliu)<br>
+    Dandi Peng [@dandipeng](https://github.com/dandipeng)<br>
+    Liya Li [@liliyaexp](https://github.com/liliyaexp)<br><br>
 
 Hw1: Multivariate Polynomial Computation<br>
 HW2: Developing a Threaded Version of the Python 'walk()' Function<br>
